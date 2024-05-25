@@ -1,19 +1,16 @@
-// Array untuk simbol-simbol di mesin slot
+// Simbol
 const symbols = ["🍒", "🍊", "🍋", "🍇", "🍉", "🍎"];
 
-// Persentase kemenangan yang diinginkan (misalnya, 50%)
+// Persentase kemenangan
 const winPercentage = 70;
-
-// Hitung jumlah simbol kemenangan berdasarkan persentase kemenangan yang diinginkan
 const winSymbolsCount = Math.ceil((winPercentage / 100) * symbols.length);
 
-// Tentukan simbol kemenangan
 const winSymbols = [];
 for (let i = 0; i < winSymbolsCount; i++) {
     winSymbols.push(symbols[i]);
 }
 
-// Fungsi untuk memutar mesin slot
+// Fungsi utama
 function putar() {
     let slot1 = Math.floor(Math.random() * symbols.length);
     let slot2 = Math.floor(Math.random() * symbols.length);
@@ -28,7 +25,7 @@ function putar() {
     }, 1500);
 }
 
-// Fungsi untuk memeriksa kemenangan
+// Pop up jika menang
 function cekKemenangan(slot1, slot2, slot3) {
     let simbolMenang = symbols[Math.floor(symbols.length / 2)];
     
