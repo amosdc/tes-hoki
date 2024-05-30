@@ -1,35 +1,33 @@
-// Simbol
-const symbols = ["🍒", "🍊", "🍋", "🍇", "🍉", "🍎"];
+  let credit = 100;
 
-// Persentase kemenangan
-const winPercentage = 70;
-const winSymbolsCount = Math.ceil((winPercentage / 100) * symbols.length);
+function spin() {
+    const bet = parseInt(document.getElementById('bet').value);
+    if (bet > credit) {
+        alert('Insufficient credit!');
+        return;
+    }
 
-const winSymbols = [];
-for (let i = 0; i < winSymbolsCount; i++) {
-    winSymbols.push(symbols[i]);
-}
+    const symbols = ['🍒', '🍋', '🔔'];
+    const reel1 = symbols[Math.floor(Math.random() * symbols.length)];
+    const reel2 = symbols[Math.floor(Math.random() * symbols.length)];
+    const reel3 = symbols[Math.floor(Math.random() * symbols.length)];
 
-// Fungsi utama
-function putar() {
-    let slot1 = Math.floor(Math.random() * symbols.length);
-    let slot2 = Math.floor(Math.random() * symbols.length);
-    let slot3 = Math.floor(Math.random() * symbols.length);
+    document.getElementById('reels').children[0].textContent = reel1;
+    document.getElementById('reels').children[1].textContent = reel2;
+    document.getElementById('reels').children[2].textContent = reel3;
 
-    document.getElementById("slot1").innerHTML = `<span style="animation-duration: 1s">${symbols[slot1]}</span>`;
-    document.getElementById("slot2").innerHTML = `<span style="animation-duration: 1.2s">${symbols[slot2]}</span>`;
-    document.getElementById("slot3").innerHTML = `<span style="animation-duration: 1.4s">${symbols[slot3]}</span>`;
+    let result;
+    if (reel1 === reel2 && reel2 === reel3) {
+        result = 'win';
+        credit += bet * 2;
+    } else if (reel1 === reel2 || reel2 === reel3 || reel1 === reel3) {
+        result = 'half-win';
+        credit += bet;
+    } else {
+        result = 'lose';
+        credit -= bet;
+    }
 
-    setTimeout(() => {
-        cekKemenangan(slot1, slot2, slot3);
-    }, 1500);
-}
-
-// Pop up jika menang
-function cekKemenangan(slot1, slot2, slot3) {
-    let simbolMenang = symbols[Math.floor(symbols.length / 2)];
-    
-    if (symbols[slot1] === simbolMenang && symbols[slot2] === simbolMenang && symbols[slot3] === simbolMenang) {
-        alert("Selamat! Anda menang!");
-    } 
+    document.getElementById('credit').textContent = Credit: ${credit};
+    document.getElementById('result').textContent = Result: ${result === 'win' ? 'You win!' : result === 'half-win' ? 'Half win!' : 'You lose!'};
 }
